@@ -25,9 +25,20 @@ public class PercolationUF implements IPercolate{
             myOpenCount++;
             if(row==0){
                 myFinder.union(row * myGrid.length + col, VTOP);
-            }
+                int[] rowDelta = {1,0,0};
+                int[] colDelta = {0,-1,1};
+                for(int k=0; k < rowDelta.length; k++) {
+                    int rowd = row + rowDelta[k];
+                    int cold = col + colDelta[k];
+                    if(inBounds(rowd,cold) && myGrid[rowd][cold]){
+                        myFinder.union(row * myGrid.length + col, rowd * myGrid.length + cold);
+
+
+                    }
+            }}
             if(row == myGrid.length - 1){
                 myFinder.union(row * myGrid.length + col, VBOTTOM);
+
             }
             if(row > 0 && row < myGrid.length - 1 && col == 0){
                 int[] rowDelta = {-1,1,0};
@@ -35,8 +46,9 @@ public class PercolationUF implements IPercolate{
                 for(int k=0; k < rowDelta.length; k++) {
                     int rowd = row + rowDelta[k];
                     int cold = col + colDelta[k];
-                    if(myGrid[rowd][cold]){
+                    if(inBounds(rowd,cold) && myGrid[rowd][cold]){
                         myFinder.union(row * myGrid.length + col, rowd * myGrid.length + cold);
+
 
                     }
 
@@ -47,7 +59,7 @@ public class PercolationUF implements IPercolate{
                 for (int k = 0; k < rowDelta.length; k++) {
                     int rowd = row + rowDelta[k];
                     int cold = col + colDelta[k];
-                    if (myGrid[rowd][cold]) {
+                    if (inBounds(rowd,cold) && myGrid[rowd][cold]) {
                         myFinder.union(row * myGrid.length + col, rowd * myGrid.length + cold);
 
                     }
@@ -59,7 +71,7 @@ public class PercolationUF implements IPercolate{
                 for(int k=0; k < rowDelta.length; k++) {
                     int rowd = row + rowDelta[k];
                     int cold = col + colDelta[k];
-                    if(myGrid[rowd][cold]){
+                    if(inBounds(rowd,cold) && myGrid[rowd][cold]){
                         myFinder.union(row * myGrid.length + col, rowd * myGrid.length + cold);
 
                     }
@@ -71,7 +83,7 @@ public class PercolationUF implements IPercolate{
                 for (int k = 0; k < rowDelta.length; k++) {
                     int rowd = row + rowDelta[k];
                     int cold = col + colDelta[k];
-                    if (myGrid[rowd][cold]) {
+                    if (inBounds(rowd,cold) && myGrid[rowd][cold]) {
                         myFinder.union(row * myGrid.length + col, rowd * myGrid.length + cold);
 
                     }
@@ -83,7 +95,7 @@ public class PercolationUF implements IPercolate{
                 for (int k = 0; k < rowDelta.length; k++) {
                     int rowd = row + rowDelta[k];
                     int cold = col + colDelta[k];
-                    if (myGrid[rowd][cold]) {
+                    if (inBounds(rowd,cold) && myGrid[rowd][cold]) {
                         myFinder.union(row * myGrid.length + col, rowd * myGrid.length + cold);
 
                     }
@@ -95,7 +107,7 @@ public class PercolationUF implements IPercolate{
                 for (int k = 0; k < rowDelta.length; k++) {
                     int rowd = row + rowDelta[k];
                     int cold = col + colDelta[k];
-                    if (myGrid[rowd][cold]) {
+                    if (inBounds(rowd,cold) && myGrid[rowd][cold]) {
                         myFinder.union(row * myGrid.length + col, rowd * myGrid.length + cold);
 
                     }
@@ -108,7 +120,7 @@ public class PercolationUF implements IPercolate{
     }
 
 
-    public boolean inBounds(int row, int col) {
+    private boolean inBounds(int row, int col) {
         if (row < 0 || row >= myGrid.length) return false;
         if (col < 0 || col >= myGrid[0].length) return false;
         return true;
